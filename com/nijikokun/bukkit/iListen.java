@@ -219,7 +219,7 @@ public class iListen extends PlayerListener {
 		}
 
 		String name = split[2];
-		String with = null;
+		String with = "";
 
 		if(name == null || name.isEmpty() || name.equals("")) {
 		    Messaging.send("&cWarpGate name is invalid."); event.setCancelled(true);
@@ -231,14 +231,14 @@ public class iListen extends PlayerListener {
 		    return;
 		}
 
-		if(Warp.parse(Warp.getGate(name)).length > 5) {
-		    with = Warp.getLink(name);
+		if(Warp.parse(Warp.getGate(name)).length >= 5) {
+		    with = Warp.getLink(Warp.parse(Warp.getGate(name)));
 		}
 
 		Messaging.send("&eRemoved WarpGate: &f"+name+"!");
 
-		if(with != null || !with.equals("null")) {
-		    Messaging.send("&eLinked Broken Between: &f"+name+" &eand &f"+with+".");
+		if(!with.equals("") || !with.equals("null")) {
+		    Messaging.send("&eLink Broken Between: &f"+name+" &eand &f"+with+".");
 		}
 
 		Warp.remove(Warp.getGateIndex(name));

@@ -42,8 +42,8 @@ public class WarpGate extends JavaPlugin {
      * Central Data pertaining directly to the plugin name & versioning.
      */
     public static String name = "WarpGate";
-    public static String codename = "Black Hole";
-    public static String version = "1.0";
+    public static String codename = "Time Rift";
+    public static String version = "1.1";
 
     /**
      * Listener for the plugin system.
