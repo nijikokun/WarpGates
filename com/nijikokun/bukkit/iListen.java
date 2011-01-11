@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * iListen.java
  * <br /><br />
  * Listens for calls from bukkit, and reacts accordingly.
- * 
+ *
  * @author Nijikokun <nijikokun@gmail.com>
  */
 public class iListen extends PlayerListener {
@@ -52,20 +52,30 @@ public class iListen extends PlayerListener {
     }
 
     private boolean checkRotation(Player player) {
-        double degrees = ((player.getLocation().getYaw() - 90) % 360);
+	double degrees = ((player.getLocation().getYaw() - 90) % 360);
 
-        if (degrees < 0) {
-            degrees += 360.0;
-        }
+	if (degrees < 0) {
+		degrees += 360.0;
+	}
 
-        if (degrees >= 315 && degrees <= 45) {
+        if (0 <= degrees && degrees < 22.5) {
             return true; // N
-        } else if (degrees >= 45 && degrees <= 135) {
+        } else if (22.5 <= degrees && degrees < 67.5) {
+            return true; // NE
+        } else if (67.5 <= degrees && degrees < 112.5) {
             return false; // E
-        } else if (degrees >= 135 && degrees <= 225) {
+        } else if (112.5 <= degrees && degrees < 157.5) {
+            return true; // SE
+        } else if (157.5 <= degrees && degrees < 202.5) {
             return true; // S
-        } else if (degrees >= 225 && degrees <= 315) {
+        } else if (202.5 <= degrees && degrees < 247.5) {
+            return true; // SW
+        } else if (247.5 <= degrees && degrees < 292.5) {
             return false; // W
+        } else if (292.5 <= degrees && degrees < 337.5) {
+            return true; // NW
+        } else if (337.5 <= degrees && degrees < 360.0) {
+            return true; // N
         } else {
             return false;
         }
@@ -151,7 +161,7 @@ public class iListen extends PlayerListener {
 		Messaging.send("&eCreated WarpGate: &f"+name+"."); event.setCancelled(true);
 		return;
 	    }
-	    
+
 	    if (Misc.isEither(command, "link", "-l") && split.length >= 3) {
 		if (!WarpGate.Watch.permission("manage-gates", player)) {
 		    return;
@@ -258,7 +268,7 @@ public class iListen extends PlayerListener {
 		    String z = gate[3];
 		    String rot = gate[4];
 		    String link = gate[5];
-		    
+
 		    String to = "";
 
 		    if(link != null || !link.equals("null")) {
@@ -279,7 +289,7 @@ public class iListen extends PlayerListener {
     @Override
     public void onPlayerMove(PlayerMoveEvent event) {
 	Player player = event.getPlayer();
-	
+
 	int[] points = { event.getTo().getBlockX(), event.getTo().getBlockY(), event.getTo().getBlockZ() };
 
 	for(String gate : Warp.gates) {
